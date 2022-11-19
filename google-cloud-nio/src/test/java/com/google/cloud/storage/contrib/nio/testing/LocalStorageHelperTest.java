@@ -84,7 +84,7 @@ public class LocalStorageHelperTest {
     localStorageService.copy(request).getResult();
     Blob obj = localStorageService.get(BlobId.of(testBucket, destinationFile));
     String copiedContents = new String(obj.getContent(Blob.BlobSourceOption.generationMatch()));
-    File file = File.createTempFile("file", ".txt");
+    File file = Files.createTempFile("file", ".txt").toFile();
     file.deleteOnExit();
     obj.downloadTo(file.toPath());
     Assert.assertArrayEquals(payload.getBytes(), Files.readAllBytes(file.toPath()));
